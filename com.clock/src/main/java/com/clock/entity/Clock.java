@@ -1,10 +1,5 @@
 package com.clock.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Clock {
  
 	private static final int ANGULO_POR_HORA = 30;
@@ -14,4 +9,44 @@ public class Clock {
 	private int minuto;
 	private int angulo;
 	
+	
+	public int getHora() {
+		return hora;
+	}
+
+	public void setHora(int hora) {
+		this.hora = hora;
+	}
+
+	public int getMinuto() {
+		return minuto;
+	}
+
+	public void setMinuto(int minuto) {
+		this.minuto = minuto;
+	}
+	
+	private int getAngulo() {
+		return this.angulo;
+	}
+	
+	public int calcularAnguloPonteirosRelogio() {
+		
+		angulo = Math.abs(getHoraAngulo(this.hora) - getMinutoAngulo(this.minuto));
+		
+		return angulo;
+	}
+
+	private int getMinutoAngulo(int minuto) {
+		return minuto * ANGULO_POR_MINUTO;
+	}
+
+	private int getHoraAngulo(int hora) {
+		return hora * ANGULO_POR_HORA;
+	}
+	
+	@Override
+	public String toString() {
+		return "{\"angulo\":" + this.getAngulo();
+	}
 }
