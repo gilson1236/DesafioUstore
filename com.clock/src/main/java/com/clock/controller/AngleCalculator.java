@@ -14,19 +14,45 @@ public class AngleCalculator {
 	private Clock lista[][] = new Clock[13][60];
 	
 	@GetMapping(value = "/{hora}/{minuto}", produces = {"application/json"})
-	public Clock getClockJson(@PathVariable int hora, @PathVariable int minuto) {
+	public String getAnguloJson(@PathVariable int hora, @PathVariable int minuto) {
 		
 		Clock relogio = new Clock();
 		
 		if(this.lista[hora][minuto] == null) {
 			relogio.setHora(hora);
 			relogio.setMinuto(minuto);
+			relogio.calcularAnguloPonteirosRelogio();
 			this.lista[hora][minuto] = relogio;
+			
+			return this.lista[hora][minuto].toString();
 		} else {
 			System.out.println("Cache");
 			relogio = this.lista[hora][minuto];
+			
+			return relogio.toString();
 		}
 		
-		return this.lista[hora][minuto];
+	}
+	
+	//Considerando a hora que seja sem minutos para este caso 
+	@GetMapping(value = "/{hora}", produces = {"application/json"})
+	public String getAnguloJson(@PathVariable int hora) {
+		
+		Clock relogio = new Clock();
+		
+		if(this.lista[hora][0] == null) {
+			relogio.setHora(hora);
+			relogio.setMinuto(0);
+			relogio.calcularAnguloPonteirosRelogio();
+			this.lista[hora][0] = relogio;
+			
+			return this.lista[hora][0].toString();
+		} else {
+			System.out.println("Cache");
+			relogio = this.lista[hora][0];
+			
+			return relogio.toString();
+		}
+		
 	}
 }

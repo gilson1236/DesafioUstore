@@ -32,9 +32,9 @@ public class Clock {
 	
 	public int calcularAnguloPonteirosRelogio() {
 		
-		angulo = Math.abs(getHoraAngulo(this.hora) - getMinutoAngulo(this.minuto));
+		this.angulo = Math.abs(getHoraAngulo(this.hora) - getMinutoAngulo(this.minuto));
 		
-		return angulo;
+		return this.angulo;
 	}
 
 	private int getMinutoAngulo(int minuto) {
